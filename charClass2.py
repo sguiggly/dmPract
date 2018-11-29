@@ -31,15 +31,30 @@ class Fighter(Classes):
         self.style=random.choice(styleList)
         return self
 
+class Barbarian(Classes):
+    def __init__(self, subclass, hp, armor, weapons, saving_throws, skills):
+        Classes.__init__(self, subclass, hp, armor, weapons, saving_throws, skills)
+
 def makeFighter(f,sList,subList):
     f.genStyle()
     f.getSkills(sList)
     f.getSub(subList)
     return f
 
+def makeBarb(b,sList,subList):
+    b.getSkills(sList)
+    b.getSub(subList)
+    return b
+
 fighter=Fighter('', '1d10', 'all,shields', 's,m', 'str,con',"",'')
 fSkills=["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]
 archList=["champion", "battle master", "eldritch knight"]
 madeFighter=makeFighter(fighter, fSkills, archList)
 
+barbarian=Barbarian('','1d12','l,m,sheilds','s,m','str,con','')
+barbSkills=["animal handling","athletics","intimidation","nature","perception","survival"]
+pathList=["path of the beserker", "path of the totem warrior"]
+madeBarb=makeBarb(barbarian,barbSkills,pathList)
+
 print("fighter:",madeFighter.__dict__)
+print("barbarian:",madeBarb.__dict__)
