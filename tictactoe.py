@@ -73,7 +73,10 @@ def check_win(board,player):
                 return True
 
     return False
-
+    
+def look_ahead(board):
+    tile1='x'
+    tile2='o'
  
 def game(board):
     print_board(board)
