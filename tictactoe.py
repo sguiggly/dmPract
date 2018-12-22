@@ -30,8 +30,14 @@ def update_board(board, selection, player):
     return board
 
 def is_valid(board, selection):
-    if board[0][selection]=='.':
-        return True
+    try:
+       selection = int(selection)
+    except ValueError:
+       return False
+
+    if selection in range(6): 
+        if board[0][selection]=='.':
+            return True
     else:
         return False
 
@@ -75,26 +81,15 @@ def game(board):
     turn=True
     while not done:
         player=get_player(turn)
-        if player==1:
-            selection=int(input('Player1 needs pick a column'))
-            if not is_valid(board,selection):
-                selection=int(input('not a valid move, pick a new column'))
-            update_board(board,selection,player)
-            if check_win(board,player):
-                print('Player1 wins!')
-                done=True
-            else:
-                turn=False
+        selection=input('Player'+str(player)+' needs pick a column')
+        while not is_valid(board,selection):
+            selection=input('not a valid move, pick a new column')
+        update_board(board,int(selection),player)
+        if check_win(board,player):
+            print('Player'+str(player)+' wins!')
+            done=True
         else:
-            selection=int(input('Player2 needs pick a column'))
-            if not is_valid(board,selection):
-                selection=int(input('not a valid move, pick a new column'))
-            update_board(board,selection,player)
-            if check_win(board,player):
-                print('Player2 wins!')
-                done=True
-            else:
-                turn=True
+            turn=not turn
         print_board(board)
 
 game(board)
